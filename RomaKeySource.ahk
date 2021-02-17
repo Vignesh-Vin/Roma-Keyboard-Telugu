@@ -5,6 +5,46 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 
 ; updateFunction()
 ; return
+
+
+; GUI Start
+Suspend, On
+Gui, Font, s13, Tahoma
+Gui, Add, Text,w400 vStatus cRed, Stopped
+Gui, Add, Button, x50 y50 w300 h80 vBtnText gchangeLabel, Start
+Gui, Add, Button, x125 y145 w150 h30 vUpdateBtn gupdateLabel, Check for Updates
+Gui, Show, x342 y206 h200 w400, RomaKey
+Return
+
+changeLabel:
+GuiControlGet, BtnText
+GuiControlGet, Status
+	If ( BtnText = "Start" )
+	{
+		GuiControl, , BtnText, Stop
+		GuiControl, , Status, Running
+		; Font Style
+		Gui, Font, cGreen
+		GuiControl, Font, Status
+
+		Suspend, Off
+	}
+	Else
+	{
+		GuiControl, , BtnText, Start
+		GuiControl, , Status, Stopped
+		Gui, Font, cRed
+		GuiControl, Font, Status
+		Suspend, On
+	}
+Return
+
+GuiClose:
+ExitApp
+
+; GUI End
+
+
 Menu, Tray, NoStandard
 Menu, Tray, Add, Update, updateLabel
 Menu, Tray, Add , Exit, ExitButton ;add a item named Exit that goes to the ButtonExit label
@@ -1667,4 +1707,4 @@ return
 !q::
 ExitApp
 
-;	BETA FEATURES HEHEHEHEHEHE
+;	BETA FEATURES 
